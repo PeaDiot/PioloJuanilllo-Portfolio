@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz||App</title>
+</head>
+<style>
+    body{
+        background-color: navy;
+    }
+    .container{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 30vh;
+    }
+    .container .quiz-container{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        background-color: white;
+        width: 70%;
+        min-height: 200px;
+    }
+    .container .quiz-container .choices{
+        display: flex;
+        flex-direction: column;
+        width: 90%;
+        gap: 10px;
+    }
+    .quiz-container .choices div{
+        height: 30px;
+        width: 100%;
+        display: flex;
+        padding-left:4%;
+        background-color: rgb(222, 222, 222);
+        box-shadow: 1px 5px 1px rgba(0, 0, 0, 0.203);
+        border: none;
+        cursor: pointer;
+        transition: .5s all;
+    }
+    .quiz-container .choices div:hover{
+    
+        background-color: rgb(255, 255, 255);
+
+    }
+    .quiz-container .choices button.selected{
+        background-color: rgb(0, 241, 0);
+        box-shadow: 1px 5px 1px rgba(0, 241, 0, 0.203);
+
+
+    }
+    .quiz-container .choices button.incorrect{
+        background-color: rgb(241, 0, 56);
+        box-shadow: 1px 5px 1px rgba(0, 241, 0, 0.203);
+    }
+    .quiz-container .locator{
+        display: flex;
+        width: 90%;
+        margin: 10px;
+        align-items: center;
+        justify-content: space-between;
+    }
+    .quiz-container .locator button{
+        padding: 10px 20px;
+        border: none;
+        cursor: pointer;
+        transition: .2s all;
+        color: black;
+        background-color: rgb(207, 207, 207);
+    }
+    .quiz-container .locator button:hover{
+
+        opacity: 50%;
+    }
+    .hide{
+        
+        visibility: hidden;
+        transition: .3s all;
+        transform:translate(0, -100%);
+    }
+    .show{
+        transition: 2s all;
+        transform:translate(0, -150%);
+    }
+    .quiz-container .start{
+        padding: 10px 50px;
+        font-family: arial;
+        cursor: pointer;
+        transition: .2s all;
+
+    }
+    .quiz-container .start:hover{
+        color: grey;
+    }
+    .quiz-container .text-intro{
+        font-family: arial;
+        font-size: 1em;
+        font-weight: 700;
+    }
+    .quiz-container .logo{
+        font-family: Helvetica;
+        align-self:center;
+        padding: 5px;
+        color: navy;
+        font-size: 1.5em;
+        font-weight: 700;
+    }
+
+</style>
+<body>
+    <div class ="container start-container">
+
+        <div class="quiz-container">
+            
+            <p class="text-intro">Welcome to a Simple Quiz</p>
+            
+            <button class="start">Start</button>
+        </div>
+
+    </div>
+    <div class="container">
+        <div class="quiz-container hide">
+
+            <div class="question">
+                <p id="question-text"></p>
+            </div>
+            <div class="choices" id="choices">
+               
+
+            </div>
+            <div class="locator">
+                <button id = "prev-btn">Prev</button>
+                <button id="next">Next</button>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+
+
+    var nextBtn = document.getElementById("next");
+    var currentNumberIndex = 0;
+    var currentQuestionIndex = 0;
+    var score=0, selectCounter = 0;
+    var tempQuestion;
+    var questionField = document.getElementById("question-text");
+    var choices = document.getElementById("choices");
+    var userAnswer, userAnswerText;
+    var storeUserAnswer=[];
+    var logo;
+    
+    var createLogo = ()=>{
+
+        logo = document.createElement("div");
+        logo.setAttribute("class", "logo"); 
+        logo.innerText = "P Quiz";
+        let quizContainer = document.querySelectorAll(".quiz-container");
+        
+        quizContainer.forEach(e=>{
+
+                try{
+
+                    e.prepend(logo);
+                }catch(e){
+                    console.log("Oh no it looks like you are having a trouble");
+
+                }finally{
+                    console.log("bobo mo!");
+                }
+        });
+        
+    }
+    createLogo();
+    
+
+    document.querySelector(".start").addEventListener('click', ()=>{
+        var hide = document.querySelector(".hide");
+        hide.classList.toggle("hide");
+        hide.classList.toggle("show");
+        document.querySelector(".logo").style.alignSelf="left";
+        
+        document.querySelector(".start-container").classList.add('hide');
+    });
+
+    const questions =[
+                        {
+                            number:1,
+                            questions:"What is the biggest mountain in the world?",
+
+                            choices:[
+                                {choices1: "Mt. Mayon", isCorrect: false},
+                                {choices1: "Mt. Fuji", isCorrect: false},
+                                {choices1: "Mt. Taal", isCorrect: false},
+                                {choices1: "Mt. Everest", isCorrect: true}
+                            ]
+                        },
+                        {
+                            number:2,
+                            questions:"What is the largest country in the world?",
+
+                            choices:[
+                                {choices1: "Mt. Mayon", isCorrect: false},
+                                {choices1: "Mt. Fuji", isCorrect: false},
+                                {choices1: "Mt. Taal", isCorrect: false},
+                                {choices1: "Mt. Everest", isCorrect: true}
+                            ]
+                        },
+                        {
+                            number:3,
+                            questions:"What is the biggest mountain in the world?",
+
+                            choices:[
+                                {choices1: "Mt. Mayon", isCorrect: false},
+                                {choices1: "Mt. tuli", isCorrect: false},
+                                {choices1: "Mt. Taal", isCorrect: false},
+                                {choices1: "Mt. Everest", isCorrect: true}
+                            ]
+                        },
+                        {
+                            number:4,
+                            questions:"What is the biggest mountain in the world?",
+
+                            choices:[
+                                {choices1: "Mt. pugo", isCorrect: false},
+                                {choices1: "Mt. Fuji", isCorrect: false},
+                                {choices1: "Mt. Taal", isCorrect: false},
+                                {choices1: "Mt. Everest", isCorrect: true}
+                            ]
+                            
+                        }
+
+                    ];
+                    function startExam(){
+                        showQuestion();
+                    }
+                    function showQuestion(){
+                        tempQuestion = questions[currentNumberIndex];
+                        number = currentNumberIndex +1;
+                        choices.innerHTML = "";
+
+
+                        questionField.innerHTML = tempQuestion.number + ".) " + tempQuestion.questions; 
+
+                        tempQuestion.choices.forEach(element => {
+                            selectCounter++;
+                            if(typeof storeUserAnswer[currentNumberIndex] !== "undefined"){
+
+                                if(storeUserAnswer[currentNumberIndex].index === currentNumberIndex && storeUserAnswer[currentNumberIndex].answer.text === element.choices1){
+                                    // && storedElement.answer.text === element.choices1 && storedElement.answer.isCorrect === element.isCorrect
+                                    choices.innerHTML += '<div class="radio-container"><input type="radio" name="choices" id="btn-choices" data-name = "'+ element.choices1 +'"  value=' + element.isCorrect+ ' checked ><label>'+ element.choices1 + ' </label></div>';
+                                }else{
+                                    choices.innerHTML += '<div class="radio-container"><input type="radio" name="choices" id="btn-choices" data-name = "'+ element.choices1 +'"  value=' + element.isCorrect+ '><label>'+ element.choices1 + ' </label></div>';
+                                
+                                }
+                            }else{
+                                    choices.innerHTML += '<div class="radio-container"><input type="radio" name="choices" id="btn-choices" data-name = "'+ element.choices1 +'"  value=' + element.isCorrect+ '><label>'+ element.choices1 + ' </label></div>';
+                                
+                            }
+                            
+                            const choicesAll = document.querySelectorAll('#btn-choices');
+                            
+                            isClicked(choicesAll);
+                            
+                            
+
+                            
+                             
+
+                        });                       
+                        
+                    }
+                    function isClicked(e){
+                            e.forEach(choices2 =>{
+
+                                 choices2.addEventListener('click', e=>{
+
+                                     userAnswer = e.target.value;
+                                     userAnswerText = e.target.dataset.name;
+                                     console.log(userAnswerText);
+
+                                 });  
+                            });
+                    }
+
+                    nextBtn.addEventListener('click',function(){
+                        
+                       if(typeof storeUserAnswer[currentNumberIndex] === "undefined"){
+                        storeUserAnswer[currentNumberIndex] = ({index:currentNumberIndex, answer:{text:userAnswerText, isCorrect:userAnswer} })
+
+                       }
+                        // storeUserAnswer[currentNumberIndex].index.push(currentNumberIndex);
+                        // storeUserAnswer[currentNumberIndex].answer.push(userAnswer);
+
+                        console
+                    
+                        currentNumberIndex++;
+                        showQuestion();
+
+                    });
+
+                    const prevBtn = document.querySelector('#prev-btn').addEventListener('click', function(){
+                        console.log(currentNumberIndex);
+
+                        currentNumberIndex--;
+                        console.log(currentNumberIndex);
+
+                        showPreviousQuestion();
+
+                    });
+
+                    function showPreviousQuestion(){
+                        const prevQuestions = questions[currentNumberIndex];
+
+                        tempQuestion = questions[currentNumberIndex];
+                        number = currentNumberIndex +1;
+                        choices.innerHTML = "";
+                        questionField.innerHTML = tempQuestion.number + ".) " + tempQuestion.questions; 
+
+                        tempQuestion.choices.forEach(element=>{
+
+                            
+                            
+                            if(storeUserAnswer[currentNumberIndex].index === currentNumberIndex && storeUserAnswer[currentNumberIndex].answer.text === element.choices1){
+                                // && storedElement.answer.text === element.choices1 && storedElement.answer.isCorrect === element.isCorrect
+                                choices.innerHTML += '<div class="radio-container"><input type="radio" name="choices" id="btn-choices" data-name = "'+ element.choices1 +'"  value=' + element.isCorrect+ ' checked ><label>'+ element.choices1 + ' </label></div>';
+                            }else{
+                                choices.innerHTML += '<div class="radio-container"><input type="radio" name="choices" id="btn-choices" data-name = "'+ element.choices1 +'"  value=' + element.isCorrect+ '><label>'+ element.choices1 + ' </label></div>';
+                            
+                            }
+                            
+                            const choicesAll = document.querySelectorAll('#btn-choices');
+
+                            isClicked(choicesAll);
+                            
+                        });
+
+
+
+                    }
+
+                    startExam();
+                    console.log(score);
+        
+</script>
+</html>
