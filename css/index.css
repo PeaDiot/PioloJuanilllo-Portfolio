@@ -146,7 +146,7 @@ section .container-intro .nav-bar-index.top{
     justify-content: space-around;
     position: fixed;
     z-index: 1;
-    transform: translate(-150px,-430px);
+    transform: translate(-150px,-400px);
     width: 100%;
     margin-top: -20px;
     padding: 15px;
@@ -183,7 +183,7 @@ section .container-intro .nav-bar-index li{
     color:maroon;
     text-decoration: underline;
 }
-.container-intro .container-intro  .nav-bar-index.top a.nav-activated{
+.container-intro  .nav-bar-index.top a.nav-activated{
     color:maroon;
 
 }
