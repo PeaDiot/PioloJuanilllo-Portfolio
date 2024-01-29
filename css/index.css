@@ -166,7 +166,7 @@ section .container-intro .nav-bar-index.top .navigation{
 }
 section .container-intro .nav-bar-index.top a{
 
-    color: black;
+    color: maroon;
     
 
 }
@@ -746,7 +746,7 @@ section .container-about .skills{
          
     }
     section .container-intro .nav-bar-index.top{
-        transform:translate(-50px,-450px);
+        transform:translate(-50px,-400px);
         background-color: rgba(0, 0, 0, 0);
         padding: 5px;
         overflow: hidden;
