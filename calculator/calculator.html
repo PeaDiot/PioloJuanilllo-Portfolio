@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator app</title>
+</head>
+<style>
+    *{
+        margin: 0;
+        padding: 0;
+        font-family: 'helvetica';
+        font-style: normal;
+    }
+    body{
+        background-color: rgb(0, 0, 0);
+
+    }
+    .container{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        border: solid 1px white;
+    }
+    .calculator{
+        border:1px solid white;
+        width: fit-content;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+
+    }
+    .screen{
+        color: white;
+        display: flex;
+        flex-direction: column;
+        align-items: end;
+        justify-content: end;
+        background-color: black;
+        width: 100%;
+        flex-basis: 200px;
+        border-bottom: rgba(128, 128, 128, 0.192) 1px solid;
+        width: 90%;
+    }
+    .screen .screen-number{
+        margin-right: 5%;
+        font-size: 1.8
+        em;
+        font-weight: 300;
+    }
+    .screen .screen-history{
+        color: rgb(92, 92, 92);
+        margin-right: 5%;
+        font-weight: 100;
+        margin-bottom: 10;
+    }
+    .buttons{
+        display: flex;
+        flex-direction: column;
+        margin: 30;
+    }
+    .buttons button{
+        width: 40px;
+        height: 40px;
+        margin: 5px;
+        background-color: black;
+        border: none;
+        color:white;
+        transition: .5s all;
+        cursor: pointer;
+
+    }
+    .buttons button:hover{
+        background-color: rgb(100, 100, 100);
+        border-radius: 100%;
+    }
+    .buttons button.operators{
+        color: rgb(255, 94, 0);
+        font-weight: 600;
+        font-size: 1em;
+    }
+    .buttons button.equals{
+        background-color: rgb(255, 94, 0);
+        color: white;
+        border-radius: 50%;
+    }
+    .buttons button.equals:hover{
+        font-size: .8em;
+        width: 35px;
+        height: 35px;
+        
+    }
+    .hide{
+        display: none;
+    }
+
+</style>
+<body>
+    <div class="start-container">
+
+
+
+
+
+    </div>
+    <div class="container hide">
+        <div class="calculator">
+            <div class="screen">
+
+                <h3 class="screen-history">0</h3>
+                <h1 class="screen-number"><span id="screen-text" >0</span></h1>
+                <h3 class="screen-history" id = "screen-number">=0</h3>
+
+            </div>
+
+            <div class="buttons">
+                <div>
+                    <button class="operators" id = "reset-screen">C</button>
+                    <button class="operators"><</button>
+                    <button class="operators">&frac12;</button>
+                    <button class="operators" value="&divide;">&divide;</button>
+                </div>
+                <div>
+                    <button value="7">7</button>
+                    <button value="8">8</button>
+                    <button value="9">9</button>
+                    <button class="operators" value="*">&times;</button>
+                </div>
+                <div>
+                    <button value="4"> 4</button>
+                    <button value="5"> 5</button>
+                    <button value="6"> 6</button>
+                    <button class="operators" value="-">&minus; </button>
+                </div>
+                <div>
+                    <button value="1">1</button>
+                    <button value="2">2</button>
+                    <button value="3">3</button>
+                    <button class="operators" id = "add-btn"value="&plus;"> &plus;</button>
+                </div>
+                <div>
+                    <button>.</button>
+                    <button value="0">0</button>
+                    <button value="00">00</button>
+                    <button class="equals" id="equals-btn">=</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        var button = document.querySelectorAll('button');
+        var screenNumber = document.getElementById('screen-text');
+        var screenNumberEquals= document.getElementById('screen-number');
+        screenNumberEquals.style.display='none';
+        var operators= ["+", "-", "*;", "/"];
+        var answer = 0, tempAns;
+        var currentNumber;
+        let numbers=[];
+
+        const calculate = (value) =>{
+            console.log(answer);
+            answer = value;
+
+            if(screenNumber.innerHTML.substring(0) === "0"){
+                screenNumber.innerHTML = "0";
+
+            }else{
+
+            }
+
+
+        }
+
+        for(let i=0;i<button.length; i++){
+
+            button[i].addEventListener('click', (e) =>calculate(e.target.value));
+            
+
+        }
+        /*function calculate(value){
+
+
+                let finalAnswer = eval(value);
+                console.log(finalAnswer);
+                screenNumberEquals.innerHTML = finalAnswer;
+
+        
+        }
+        function add(acummulator, a){
+               return parseInt(acummulator) + parseInt(a); 
+        }
+        
+        document.getElementById('reset-screen').addEventListener('click', function(){
+
+            let tryMath = eval(50*50+100+50);
+
+            for(i=0; i<numbers.length; i++){
+                numbers.splice(numbers.length,1);
+                console.log(numbers);
+
+            }
+            screenNumberEquals.style.display='none';
+            screenNumber.innerHTML=tryMath;
+            screenNumberEquals.innerHTML=tryMath;
+
+        });
+        document.getElementById('equals-btn').addEventListener('click', function(){
+
+            
+        });*/
+
+    </script>
+</body>
+</html>
